@@ -30,7 +30,12 @@ class ProfileScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFe6ccb2), Color(0xFF8b5e34)],
+            colors:[
+              Color(0xFF001F54), // Navy Tua
+              Color(0xFF003566), // Biru Sedikit Lebih Terang
+              Color(0xFF006494), // Biru Sedang
+              Color(0xFF669BBC), // Biru Muda
+                ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
