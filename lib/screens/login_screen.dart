@@ -1,7 +1,7 @@
 import 'package:extroverse/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'register_screen.dart';
-import 'profile_screen.dart';
+import 'beranda_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ProfileScreen()),
+        MaterialPageRoute(builder: (context) => BerandaScreen()),
       );
       // LoginService().login(_emailController.text, _passwordController.text);
     }
