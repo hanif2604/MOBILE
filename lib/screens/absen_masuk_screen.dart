@@ -6,7 +6,7 @@ class AbsenMasukScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
+      appBar: AppBar(
         title: Text('Absen Masuk'),
         backgroundColor: Colors.grey[300],
         centerTitle: true,
@@ -14,11 +14,23 @@ class AbsenMasukScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);  // Kembali ke halaman profil
+            Navigator.pop(context); // Kembali ke halaman profil
           },
         ),
       ),
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF001F54), // Navy Tua
+              Color(0xFF003566), // Biru Sedikit Lebih Terang
+              Color(0xFF006494), // Biru Sedang
+              Color(0xFF669BBC), // Biru Muda
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,6 +38,10 @@ class AbsenMasukScreen extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Masukan Nama Anda',
+                labelStyle: TextStyle(
+                color: Colors.white, // Atur warna teks label di sini
+                fontSize: 16, // Anda juga bisa menyesuaikan ukuran font, jika perlu
+               ),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -36,6 +52,10 @@ class AbsenMasukScreen extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Tersusuri di sini',
+                      labelStyle: TextStyle(
+                      color: Colors.white, // Atur warna teks label di sini
+                      fontSize: 16, // Anda juga bisa menyesuaikan ukuran font, jika perlu
+                       ),
                       border: OutlineInputBorder(),
                     ),
                   ),

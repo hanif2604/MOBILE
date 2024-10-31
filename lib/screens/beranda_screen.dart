@@ -1,11 +1,14 @@
 import 'package:extroverse/screens/login_screen.dart';
+import 'package:extroverse/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'absen_masuk_screen.dart';
-import 'absen_keluar_screen.dart'; // Import untuk Absen Keluar
+import 'absen_keluar_screen.dart';
 import 'cuti_izin_screen.dart';
 import 'riwayat_absensi_screen.dart';
 
 class BerandaScreen extends StatelessWidget {
+  final int notificationCount = 1; // contoh jumlah notifikasi baru
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,7 @@ class BerandaScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => LoginScreen())
+                MaterialPageRoute(builder: (context) => LoginScreen()),
               );
             },
             icon: const Icon(
@@ -31,10 +34,10 @@ class BerandaScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF001F54), // Navy Tua
-              Color(0xFF003566), // Biru Sedikit Lebih Terang
-              Color(0xFF006494), // Biru Sedang
-              Color(0xFF669BBC), // Biru Muda
+              Color(0xFF001F54),
+              Color(0xFF003566),
+              Color(0xFF006494),
+              Color(0xFF669BBC),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -42,46 +45,90 @@ class BerandaScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // User Profile and Greeting Section
             Container(
               padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
-              color: Color(0xFF001F54), // Navy Tua sesuai skema warna biru
-              child: Row(
+              color: Color(0xFF001F54),
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 40.0,
-                    backgroundImage: AssetImage('assets/icon/profil.png'), // Replace with actual image path
-                  ),
-                  SizedBox(width: 16.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(
-                        'Hi, Extroverse',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      CircleAvatar(
+                        radius: 40.0,
+                        backgroundImage: AssetImage('assets/icon/profil.png'),
                       ),
-                      Text(
-                        'Karyawan',
-                        style: TextStyle(fontSize: 16, color: Colors.white70),
-                      ),
-                      SizedBox(height: 8.0), // Memberikan sedikit jarak
-                      Text(
-                        'Selamat datang!',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                      Text(
-                        'Selamat beraktifitas!',
-                        style: TextStyle(fontSize: 16, color: Colors.white70),
+                      SizedBox(width: 16.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hi, Agus Sedih',
+                            style: TextStyle(fontSize: 24, color: Colors.white),
+                          ),
+                          Text(
+                            'Karyawan',
+                            style: TextStyle(fontSize: 16, color: Colors.white70),
+                          ),
+                        ],
                       ),
                     ],
+                  ),
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.notifications, color: Colors.white, size: 30),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => NotificationScreen()),
+                            );
+                          },
+                        ),
+                        if (notificationCount > 0)
+                          Positioned(
+                            right: 4,
+                            top: 4,
+                            child: Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                '$notificationCount',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-
+            SizedBox(height: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Selamat datang!',
+                  style: TextStyle(fontSize: 22, color: Colors.white),
+                ),
+                Text(
+                  'Selamat beraktifitas!',
+                  style: TextStyle(fontSize: 20, color: Colors.white70),
+                ),
+              ],
+            ),
             SizedBox(height: 20),
-
-            // Main Menu Grid
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -90,7 +137,6 @@ class BerandaScreen extends StatelessWidget {
                   crossAxisSpacing: 20.0,
                   mainAxisSpacing: 20.0,
                   children: [
-                    // Absen Masuk
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -109,13 +155,14 @@ class BerandaScreen extends StatelessWidget {
                           children: [
                             Image.asset("assets/icon/check.png", width: 50),
                             SizedBox(height: 10),
-                            Text("Absen Masuk", style: TextStyle(color: Color(0xFF001F54))), // Menggunakan warna biru tua
+                            Text(
+                              "Absen Masuk",
+                              style: TextStyle(color: Color(0xFF001F54)),
+                            ),
                           ],
                         ),
                       ),
                     ),
-
-                    // Absen Keluar (Tambahan)
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -132,15 +179,16 @@ class BerandaScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset("assets/icon/bag.png", width: 50), // Ikon untuk Absen Keluar
+                            Image.asset("assets/icon/bag.png", width: 50),
                             SizedBox(height: 10),
-                            Text("Absen Keluar", style: TextStyle(color: Color(0xFF003566))), // Warna biru sedikit lebih terang
+                            Text(
+                              "Absen Keluar",
+                              style: TextStyle(color: Color(0xFF003566)),
+                            ),
                           ],
                         ),
                       ),
                     ),
-
-                    // Pengajuan Absen
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -159,13 +207,14 @@ class BerandaScreen extends StatelessWidget {
                           children: [
                             Image.asset("assets/icon/calender.png", width: 50),
                             SizedBox(height: 10),
-                            Text("Izin/Cuti", style: TextStyle(color: Color(0xFF003566))), // Biru sedikit lebih terang
+                            Text(
+                              "Izin/Cuti",
+                              style: TextStyle(color: Color(0xFF003566)),
+                            ),
                           ],
                         ),
                       ),
                     ),
-
-                    // Riwayat Absensi
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -184,7 +233,10 @@ class BerandaScreen extends StatelessWidget {
                           children: [
                             Image.asset("assets/icon/riwayat.png", width: 50),
                             SizedBox(height: 10),
-                            Text("Riwayat Absensi", style: TextStyle(color: Color(0xFF006494))), // Biru sedang
+                            Text(
+                              "Riwayat Absensi",
+                              style: TextStyle(color: Color(0xFF006494)),
+                            ),
                           ],
                         ),
                       ),
