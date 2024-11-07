@@ -6,19 +6,16 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300], // Set the AppBar background color to green
-        elevation: 0,
-        title: Text(
-          'Notifikasi Cuti/Izin',
-          style: TextStyle(color: const Color.fromARGB(255, 39, 39, 39)), // Set the title color to white for contrast
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 6, 6, 6)), // Change back icon color to white
+        title: Text('Notifikasi Cuti/Izin'),
+         backgroundColor: Colors.grey[300],
+        centerTitle: true,
+        elevation: 0,leading: IconButton(
+          icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context);  // Kembali ke halaman profil
           },
         ),
-      ),
+      ),  
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

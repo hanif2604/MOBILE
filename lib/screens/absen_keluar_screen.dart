@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart'; // Plugin untuk menampilkan peta Google
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:extroverse/screens/status_absen_keluar_screen.dart';
 
 class AbsenKeluarScreen extends StatelessWidget {
+  final String namaKaryawan = 'Agus';
+  final String peranKaryawan = 'Karyawan';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +17,7 @@ class AbsenKeluarScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);  // Kembali ke halaman profil
+            Navigator.pop(context);
           },
         ),
       ),
@@ -35,14 +38,30 @@ class AbsenKeluarScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Masukan Nama Anda',
-                labelStyle: TextStyle(
-                color: Colors.white, // Atur warna teks label di sini
-                fontSize: 16, // Anda juga bisa menyesuaikan ukuran font, jika perlu
-                ),
-                border: OutlineInputBorder(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+              color: Color(0xFF001F54),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 40.0,
+                    backgroundImage: AssetImage('assets/icon/profil.png'),
+                  ),
+                  SizedBox(width: 16.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hi, $namaKaryawan',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                      Text(
+                        peranKaryawan,
+                        style: TextStyle(fontSize: 16, color: Colors.white70),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 16),
@@ -50,13 +69,34 @@ class AbsenKeluarScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Tersusuri di sini',
                       labelStyle: TextStyle(
-                      color: Colors.white, // Atur warna teks label di sini
-                      fontSize: 16, // Anda juga bisa menyesuaikan ukuran font, jika perlu
-                       ),
-                      border: OutlineInputBorder(),
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                          width: 3.0,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -73,7 +113,7 @@ class AbsenKeluarScreen extends StatelessWidget {
             Expanded(
               child: GoogleMap(
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(-6.3264, 108.3198), // Koordinat default (Indramayu)
+                  target: LatLng(-6.3264, 108.3198), // Koordinat default
                   zoom: 14.0,
                 ),
                 myLocationEnabled: true,

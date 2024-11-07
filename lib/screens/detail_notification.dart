@@ -5,13 +5,16 @@ class DetailNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Notifikasi Cuti/Izin',
-          style: TextStyle(color: const Color.fromARGB(255, 40, 39, 39)), // Set title text color to white
+        title: Text('Notifikasi Cuti/Izin'),
+         backgroundColor: Colors.grey[300],
+        centerTitle: true,
+        elevation: 0,leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);  // Kembali ke halaman profil
+          },
         ),
-        backgroundColor: Colors.grey[300],
-        iconTheme: IconThemeData(color: const Color.fromARGB(255, 0, 0, 0)), // Set back arrow color to white
-      ),
+      ),  
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -38,7 +41,7 @@ class DetailNotification extends StatelessWidget {
               children: [
                 Icon(
                   Icons.check_circle,
-                  color: Color(0xFF001F54),
+                  color: Color.fromARGB(255, 83, 203, 123),
                   size: 50,
                 ),
                 SizedBox(height: 16),

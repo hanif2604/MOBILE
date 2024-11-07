@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class CutiIzinScreen extends StatefulWidget {
   @override
@@ -6,16 +6,12 @@ class CutiIzinScreen extends StatefulWidget {
 }
 
 class _CutiIzinScreenState extends State<CutiIzinScreen> {
-  final TextEditingController _namaController = TextEditingController();
   final TextEditingController _keteranganController = TextEditingController();
-  DateTime? _startDate;
-  DateTime? _endDate;
+  DateTime? _tanggalMulai;
+  DateTime? _tanggalSelesai;
 
-  void _submitForm() {
-    if (_namaController.text.isNotEmpty &&
-        _keteranganController.text.isNotEmpty &&
-        _startDate != null &&
-        _endDate != null) {
+  void _kirimFormulir() {
+    if (_keteranganController.text.isNotEmpty && _tanggalMulai != null && _tanggalSelesai != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Pengajuan Cuti/Izin Berhasil!')),
       );
@@ -58,63 +54,59 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: _namaController,
-                decoration: InputDecoration(
-                  labelText: 'Nama Anda',
-                  labelStyle: TextStyle(
-                    color: Colors.white, // Warna label teks
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Optional: For rounded corners
-                    borderSide: BorderSide(
-                      color: Colors.white, // Warna border
-                      width: 2.0, // Ketebalan garis border
+              // Bagian Profil
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+                color: Color(0xFF001F54),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage: AssetImage('assets/icon/profil.png'),
                     ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
-                      color: Colors.white, // Warna border saat tidak fokus
-                      width: 2.0, // Ketebalan garis border
+                    SizedBox(width: 16.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi, Agus',
+                          style: TextStyle(fontSize: 24, color: Colors.white),
+                        ),
+                        Text(
+                          'Karyawan',
+                          style: TextStyle(fontSize: 16, color: Colors.white70),
+                        ),
+                      ],
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
-                      color: Colors.blue, // Warna border saat teksfield fokus
-                      width: 3.0, // Ketebalan border saat fokus
-                    ),
-                  ),
+                  ],
                 ),
               ),
               SizedBox(height: 16),
               TextField(
                 controller: _keteranganController,
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Keterangan',
-                  labelStyle: TextStyle(
-                    color: Colors.white, // Warna label teks
-                  ),
+                  labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Optional: For rounded corners
+                    borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(
-                      color: Colors.white, // Warna border
-                      width: 2.0, // Ketebalan garis border
+                      color: Colors.white,
+                      width: 2.0,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(
-                      color: Colors.white, // Warna border saat tidak fokus
-                      width: 2.0, // Ketebalan garis border
+                      color: Colors.white,
+                      width: 2.0,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(
-                      color: Colors.blue, // Warna border saat teksfield fokus
-                      width: 3.0, // Ketebalan border saat fokus
+                      color: Colors.blue,
+                      width: 3.0,
                     ),
                   ),
                 ),
@@ -124,10 +116,10 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      _startDate == null
+                      _tanggalMulai == null
                           ? 'Mulai'
-                          : 'Mulai: ${_startDate!.toLocal()}'.split(' ')[0],
-                      style: TextStyle(color: Colors.white), // Warna teks
+                          : 'Mulai: ${_tanggalMulai!.toLocal()}'.split(' ')[0],
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   ElevatedButton(
@@ -138,9 +130,9 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2101),
                       );
-                      if (picked != null && picked != _startDate) {
+                      if (picked != null && picked != _tanggalMulai) {
                         setState(() {
-                          _startDate = picked;
+                          _tanggalMulai = picked;
                         });
                       }
                     },
@@ -153,10 +145,10 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      _endDate == null
+                      _tanggalSelesai == null
                           ? 'Selesai'
-                          : 'Selesai: ${_endDate!.toLocal()}'.split(' ')[0],
-                      style: TextStyle(color: Colors.white), // Warna teks
+                          : 'Selesai: ${_tanggalSelesai!.toLocal()}'.split(' ')[0],
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   ElevatedButton(
@@ -167,9 +159,9 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2101),
                       );
-                      if (picked != null && picked != _endDate) {
+                      if (picked != null && picked != _tanggalSelesai) {
                         setState(() {
-                          _endDate = picked;
+                          _tanggalSelesai = picked;
                         });
                       }
                     },
@@ -179,7 +171,7 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _submitForm,
+                onPressed: _kirimFormulir,
                 child: Text('Ajukan Sekarang'),
               ),
             ],

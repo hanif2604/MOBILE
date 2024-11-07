@@ -62,7 +62,7 @@ class BerandaScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi, Agus Sedih',
+                            'Hi, Agus ',
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
                           Text(
