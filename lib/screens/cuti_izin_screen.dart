@@ -1,25 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'detail_notification.dart';
 
 class CutiIzinScreen extends StatefulWidget {
+  const CutiIzinScreen({super.key});
+
   @override
   _CutiIzinScreenState createState() => _CutiIzinScreenState();
 }
 
 class _CutiIzinScreenState extends State<CutiIzinScreen> {
+  FlutterLocalNotificationsPlugin _notificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
   final TextEditingController _keteranganController = TextEditingController();
   DateTime? _tanggalMulai;
   DateTime? _tanggalSelesai;
 
   void _kirimFormulir() {
-    if (_keteranganController.text.isNotEmpty && _tanggalMulai != null && _tanggalSelesai != null) {
+    if (_keteranganController.text.isNotEmpty &&
+        _tanggalMulai != null &&
+        _tanggalSelesai != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Pengajuan Cuti/Izin Berhasil!')),
+      );
+
+      _showNotification(
+        'Pengajuan Diterima',
+        'Pengajuan cuti Anda telah berhasil. Klik untuk detail.',
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Mohon lengkapi semua data!')),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeNotifications();
+  }
+
+  void _initializeNotifications() {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+
+    _notificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        if (response.payload != null) {
+          _navigateToDetail(response.payload!);
+        }
+      },
+    );
+  }
+
+  void _navigateToDetail(String payload) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailNotification()),
+    );
+  }
+
+  Future<void> _showNotification(String title, String body) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'status_channel',
+      'Status Cuti',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await _notificationsPlugin.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+      payload: 'detail_notifikasi', // Payload yang akan diproses
+    );
   }
 
   @override
@@ -147,7 +213,8 @@ class _CutiIzinScreenState extends State<CutiIzinScreen> {
                     child: Text(
                       _tanggalSelesai == null
                           ? 'Selesai'
-                          : 'Selesai: ${_tanggalSelesai!.toLocal()}'.split(' ')[0],
+                          : 'Selesai: ${_tanggalSelesai!.toLocal()}'
+                              .split(' ')[0],
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
